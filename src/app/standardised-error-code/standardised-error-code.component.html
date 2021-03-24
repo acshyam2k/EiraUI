@@ -1,0 +1,262 @@
+<div class="content-container" fxLayout="column" fxLayoutGap="24px">
+  <div fxFill fxLayout="row" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="center none" fxFlex="100">
+      <form
+        [formGroup]="standardisedErrorCodeForm"
+        novalidate
+        (ngSubmit)="onSubmit()"
+        fxFlex="90"
+        fxLayout="column"
+      >
+        <div fxFlex class="mat-h2 primary">Eira Standardised Error Code</div>
+
+        <div fxFlex>
+          <div fxLayout="row">
+            <div fxLayout="column" fxFlex="50">
+              <div fxLayout="column" fxFlex>
+                <div fxFlex class="mat-h3">Eira Error Code Details</div>
+
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex="50"><!--equip cate-->
+                    <mat-label>Equipment Category</mat-label>
+
+                    <mat-select
+                      placeholder="Select Equipment Category"
+                      [(ngModel)]="equipmentCategoryId"
+                      (selectionChange)="getErrorCodesByCategoryId($event.value)"
+
+                      required
+                      [ngModelOptions]="{ standalone: true }"
+                    >
+                      <mat-option
+                        *ngFor="let equipmentCategory of equipmentCategoryList"
+                        [value]="equipmentCategory.equipmentCategoryId"
+                      >
+                        {{ equipmentCategory.equipmentCategory }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        standardisedErrorCodeForm.controls[
+                          'equipmentCategoryId'
+                        ].hasError('required')
+                      "
+                    >
+                      <strong>Please select Equipment Category!</strong>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" fxFlex="80"><!--equip Type-->
+                    <mat-label>Select Equipment Type</mat-label>
+
+                    <mat-select
+                      placeholder="Select Type"
+                      formControlName="equipmentTypeId"
+                      (selectionChange)="getErrorCodesByTypeId($event.value)"
+                      required
+                    >
+                      <mat-option
+                        *ngFor="let equipmentType of equipmentTypeList"
+                        [value]="equipmentType.equipmentTypeId"
+                      >
+                        {{ equipmentType.equipmentType }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        standardisedErrorCodeForm.controls[
+                          'equipmentTypeId'
+                        ].hasError('required')
+                      "
+                    >
+                      <strong>Please select Equipment Type!</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex> <!--Oem error-->
+                    <mat-label>OEM Error Message</mat-label>
+
+                    <input
+                      matInput
+                      placeholder="OEM Error Message"
+                      formControlName="errorMessage"
+                      required
+                    />
+                    <mat-error
+                      *ngIf="
+                        standardisedErrorCodeForm.controls[
+                          'errorMessage'
+                        ].hasError('required')
+                      "
+                    >
+                      <strong>Please provide Error Message!</strong>
+                    </mat-error>
+                  </mat-form-field>
+
+                 
+                </div>
+
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex><!--eira error-->
+                    <mat-label>Eira Error Message</mat-label>
+
+                    <input
+                      matInput
+                      placeholder="Eira Error Message"
+                      formControlName="eiraErrorMessage"
+                      required
+                    />
+
+                    <mat-error
+                      *ngIf="
+                        standardisedErrorCodeForm.controls['eiraErrorMessage'].hasError('required')
+                      "
+                    >
+                      <strong>Please provide Eira Error Message!</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div fxLayout="column" fxFlex="50">
+              <div fxLayout="column" fxFlex>
+                <div fxFlex class="mat-h3">Additional Details</div>
+
+                
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex="45"><!--message type-->
+                    <mat-label>Message Type*</mat-label>
+
+                    <mat-select
+                      placeholder="Select Type*"
+                      formControlName="messageType"
+                    >
+                      <mat-option
+                        *ngFor="let messageType of messageTypeList"
+                        [value]="messageType.name"
+                      >
+                        {{ messageType.name }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        standardisedErrorCodeForm.controls[
+                          'messageType'
+                        ].hasError('required')
+                      "
+                    >
+                      <strong>Please select Message Type!</strong>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" fxFlex><!--compound Type-->
+                    <mat-label>Component Type</mat-label>
+
+                    <input
+                      matInput
+                      placeholder="Aproved by"
+                      formControlName="componentType"
+                    />
+                  </mat-form-field>
+                  
+          
+                </div>
+
+                
+                <div fxFlex fxLayout="row">
+                  <div flxFlex fxLayout="column">
+                    <mat-label fxFlex=10 class="mat-h4" ><b>Error Priority</b></mat-label>
+                    <mat-radio-group
+                   formControlName="priority"
+                   fxFlex=80
+                 >
+                   <mat-radio-button value=1>High</mat-radio-button>
+                   &nbsp;&nbsp;&nbsp;
+                   <mat-radio-button value=2>Medium</mat-radio-button
+                   >&nbsp;&nbsp;&nbsp;
+                   <mat-radio-button value=3>Low</mat-radio-button>
+                 </mat-radio-group>
+
+                  </div>
+                   <!--priority-->    
+                 <mat-form-field appearance="outline" fxFlex><!--aproved by-->
+                  <mat-label>Aproved By</mat-label>
+
+                  <input
+                    matInput
+                    placeholder="Aproved by"
+                    formControlName="approvedBy"
+                  />
+                </mat-form-field>
+                  
+           
+                </div>
+                <div flxFlex fxLayout="column">
+                  <mat-label fxFlex=10 class="mat-h4" fxLayoutAlign="start start"><b>Status</b></mat-label>
+                <div fxlayout="row" >
+
+                
+
+
+                    <!--status-->     <mat-radio-group
+                    formControlName="active"
+                    fxFlex = 10
+                    fxLayoutAlign="start start"
+                  >
+                    <mat-radio-button value="created">Created</mat-radio-button>
+                    &nbsp;&nbsp;&nbsp;
+                    <mat-radio-button value="reviewing"
+                      >Reviewing</mat-radio-button
+                    >&nbsp;&nbsp;&nbsp;
+                    <mat-radio-button value="true">Active</mat-radio-button>&nbsp;&nbsp;&nbsp;
+                    <mat-radio-button value="false"
+                      >In-Active</mat-radio-button
+                    >&nbsp;&nbsp;&nbsp;
+                    <mat-radio-button value="deactivated"
+                      >Deactivated</mat-radio-button
+                    >
+                  </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+
+            
+            </div>
+          </div>
+        </div>
+
+        <div
+        fxFlex
+        fxLayoutAlign="center center"
+        class="button-row"
+        fxLayoutGap="20px"
+      >
+        <button mat-raised-button color="accent">Submit</button>
+
+        <button
+          type="button"
+          mat-raised-button
+          color="warn"
+          (click)="resetForm()"
+        >
+          Reset
+        </button>
+      </div>
+      </form>
+    </div>
+  </div>
+  <div fxFlex fxLayout="row" fxLayoutAlign="center none">
+    <div fxFill fxLayout="column" fxFlex="90">
+      <div fxFlex>
+     <app-standardised-error-code-table
+          (edit)="onEdit($event)"
+        ></app-standardised-error-code-table>
+      </div>
+    </div>
+  
+  </div>
+
+  
+</div>

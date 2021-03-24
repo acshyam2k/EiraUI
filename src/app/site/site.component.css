@@ -1,0 +1,26 @@
+
+.mat-form-field {
+  margin-right: 3%;
+}
+
+
+.mat-expansion-panel-header {
+  background-color:  var(--basic-color3);
+}
+
+
+.panel-title {
+  margin-bottom: 0% !important;
+}
+
+
+.mat-expansion-panel-header.mat-expanded,
+.mat-expansion-panel-header.mat-expanded:hover {
+  background: var(--basic-color3) !important;
+}
+
+
+.add-button {
+  padding: 8px 8px 8px 0px;
+}
+

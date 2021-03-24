@@ -1,0 +1,76 @@
+<div class="mat-elevation-z8">
+
+  <div fxLayout="row">
+    <div fxFlex="56" fxFlexOffset="15" fxLayoutAlign="center center">
+      <div class="mat-h2 table-heading"><u>Equipment List</u></div>
+
+    </div>
+    <mat-form-field fxFlex  fxLayoutAlign="flex-end center">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+  <table mat-table class="full-width-table" matSort aria-label="Elements"  [dataSource]="dataSource">
+
+    <ng-container matColumnDef="equipmentCode">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Equipment Code</th>
+      <td mat-cell *matCellDef="let row">{{row.equipmentCode}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="displayName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Display Name</th>
+      <td mat-cell *matCellDef="let row">{{row.displayName}}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="equipmentCategory">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Equipment Category</th>
+      <td mat-cell *matCellDef="let row">{{row.equipmentCategory}}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="equipmentType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Equipment Type</th>
+      <td mat-cell *matCellDef="let row">{{row.equipmentType}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="customerNaming">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer Naming</th>
+      <td mat-cell *matCellDef="let row">{{row.customerNaming}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td mat-cell *matCellDef="let row">{{row.status}}</td>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+      <td mat-cell *matCellDef="let row">
+
+        <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" (click)="editEquipment(row)">
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row;
+                            let even = even;
+                            columns: displayedColumns;"
+                            [ngClass]="{gray: even}"></tr>
+
+                            <tr class="mat-row" *matNoDataRow>
+                              <td class="mat-cell" colspan="9999">
+                                No Equipments Found for the Site (or) Please select Site to view the Equipments!.
+                               </td>
+                            </tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="dataSource?.data.length"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 20, 25]">
+  </mat-paginator>
+</div>

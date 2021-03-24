@@ -1,0 +1,31 @@
+.menu-icon {
+  color: white;
+  padding-right: 5px;
+}
+
+.menu-icon svg {
+  fill: white;
+}
+
+
+.mat-list-base .mat-list-item {
+  color: white !important;
+  font-size: 12px;
+}
+
+
+.eira-title {
+  margin: 16px !important;
+}
+
+
+
+.submenuItem {
+  height: 32px !important;
+  margin-left: 40px !important;
+}
+
+.sidenav_container {
+  max-width: 260px!important;
+
+}

@@ -1,0 +1,90 @@
+<div class="content-container" fxLayout="column" fxLayoutGap="24px">
+  <div fxFill fxLayout="row" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="center none" fxFlex="100">
+      <form
+        [formGroup]="dataLoggerForm"
+        novalidate
+        (ngSubmit)="onSubmit()"
+        fxFlex="90"
+        fxLayout="column"
+      >
+        <input type="hidden" formControlName="dataLoggerId" />
+        <div fxFlex class="mat-h2 primary">Data Logger Configuration</div>
+
+           <div fxFlex>
+            <div fxLayout="row" fxLayoutGap="20px">
+              <div fxLayout="row" fxFlex="100">
+                <div fxLayout="column" fxFlex>
+                  <div fxFlex class="mat-h3">DataLogger Details</div>
+                  <div fxFlex layout="row" fxFlex="100">
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Data Logger Description*</mat-label>
+
+                      <textarea
+                        matInput
+                        placeholder="Data Logger Description"
+                        formControlName="description"
+                      ></textarea>
+                      <mat-error
+                        *ngIf="
+                          dataLoggerForm.controls['description'].hasError(
+                            'required'
+                          )
+                        "
+                      >
+                        Description for Data Logger is <strong>required!</strong>
+                      </mat-error>
+                    </mat-form-field>
+
+
+                     <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Remarks</mat-label>
+
+                      <textarea
+                        matInput
+                        placeholder="Remarks for DataLogger"
+                        formControlName="remarks"
+                      ></textarea>
+
+
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+
+        <div
+          fxFlex
+          fxLayoutAlign="center center"
+          class="button-row"
+          fxLayoutGap="20px"
+        >
+          <button mat-raised-button color="accent">Submit</button>
+
+          <button
+            type="button"
+            mat-raised-button
+            color="warn"
+            (click)="resetForm()"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div fxFlex fxLayout="row" fxLayoutAlign="center none">
+    <div fxFill fxLayout="column" fxFlex="90">
+      <div fxFlex>
+        <app-dataLogger-table (edit)="onEdit($event)"></app-dataLogger-table>
+      </div>
+    </div>
+  </div>
+</div>
+

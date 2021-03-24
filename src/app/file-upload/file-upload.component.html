@@ -1,0 +1,20 @@
+<ng-container [formGroup]="parentForm">
+	<h1 mat-dialog-title>
+		File Upload
+	</h1>
+	<div class="row">
+		<mat-form-field style="display: none">
+			<input matInput formControlName="{{fileUploadId}}" value="files">
+        </mat-form-field>
+        <div class="col-sm-12">
+				<div class="dropzone" fileDragDrop (filesChangeEmiter)="onFilesChange($event)">
+					<div class="text-wrapper">
+						<div class="centered">
+              <input type="file" name="file" id="file" (change)="onFilesChange($event.target.files)" multiple>
+							<label for="file"><strong class="textLink">Select your file</strong> or Drop it here!</label>
+              </div>
+					</div>
+				</div>
+			</div>
+	</div>
+</ng-container>

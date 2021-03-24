@@ -1,0 +1,48 @@
+<mat-nav-list>
+  <a
+    mat-list-item
+    [ngStyle]="{ 'padding-left': depth * 12 + 'px' }"
+    (click)="onItemSelected(item)"
+    [ngClass]="{
+      active: item.route ? router.isActive(item.route, true) : false,
+      expanded: expanded
+    }"
+  >
+    <mat-icon class="routeIcon">{{ item.iconName }}</mat-icon>
+    <span [@animateText]="sideNavToggleState ? 'show' : 'hide'">
+      {{ item.displayName }}
+    </span>
+
+    <span fxFlex></span>
+    <div *ngIf="sideNavToggleState">
+    <div
+      class="arrow"
+      *ngIf="
+        !item.children && item.route
+          ? router.isActive(item.route, true)
+          : false"
+    >
+      <div class="point"></div>
+    </div>
+    </div>
+
+    <span fxFlex *ngIf="item.children && item.children.length">
+      <span fxFlex></span>
+      <mat-icon
+        [@indicatorRotate]="expanded ? 'expanded' : 'collapsed'"
+        *ngIf="sideNavToggleState"
+      >
+        expand_more
+      </mat-icon>
+    </span>
+  </a>
+</mat-nav-list>
+<div *ngIf="expanded">
+  <app-side-nav-menu
+    *ngFor="let child of item.children"
+    [item]="child"
+    [depth]="depth + 1"
+    [sideNavToggleState]="sideNavToggleState"
+  >
+  </app-side-nav-menu>
+</div>

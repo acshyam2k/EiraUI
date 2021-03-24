@@ -1,0 +1,50 @@
+
+
+.login-card {
+  background-color:var(--basic-color2);
+}
+
+.alert {
+  color:red;
+}
+
+.login-container {
+  padding: 20px;
+ }
+
+.eira-hero-heading {
+  font-size: 80px;
+  color: white;
+  font-family: 'Montserrat';
+}
+
+.login-form-field .mat-form-field-wrapper{
+  margin-bottom: -1.25em !important;
+  font-size: 12px;
+
+}
+
+.input-field {
+  border-radius: 6px;
+  width: 80%;
+}
+
+.welcome-msg {
+  margin-bottom: -3px;
+}
+.loginField.mat-input-element {
+  padding-bottom: 10px !important;
+    padding-left: 8px !important;
+}
+
+.divider{
+  background-color: white;
+}
+
+
+.login-button {
+  color:white !important;
+  width:50%;
+  font-size: 14px;
+
+}

@@ -1,0 +1,131 @@
+/* Add application styles & imports to this file! */
+@import "~@angular/material/theming";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "./eira-styles.scss";
+
+
+$eira-primary: (
+  50: #eaebf6,
+  100: #cacde9,
+  200: #a8addb,
+  300: #868ccb,
+  400: #6553ac,
+  500: #5759b5,
+  600: #5050ab,
+  700: #47469e,
+  800: #403c92,
+  900: #342a7c,
+  A100: #342a7c,
+  A200: #342a7c,
+  A400: #072448,
+  A700: #00034f,
+  contrast: (
+    50: #ffffff,
+    100: #ffffff,
+    200: #ffffff,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #ffffff,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff
+  )
+);
+
+$eira-accent: (
+  50: #fff8e1,
+  100: #ffedb3,
+  200: #ffe183,
+  300: #ffd650,
+  400: #ffd349,
+  500: #ffcb29,
+  600: #ffc309,
+  700: #ffb401,
+  800: #ffa200,
+  900: #ff9100,
+  A100: #ff7100,
+  A200: #ff7100,
+  A400: #ff7100,
+  A700: #c67300,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #FFFFFF,
+    900: #FFFFFF,
+    A100: #FFFFFF,
+    A200: #FFFFFF,
+    A400: #FFFFFF,
+    A700: #FFFFFF
+  )
+);
+
+
+
+$eira-warn: (
+  50: #FFE8ED,
+  100: #FFC5CF,
+  200: #FF8A94,
+  300: #F98A92,
+  400: #F25766,
+  500: #FD0E40,
+  600: #FF0023,
+  700: #F00024,
+  800: #DE001E,
+  900: #D00017,
+  A100: #C10009,
+  A200: #C10009,
+  A400: #BA1E3C,
+  A700: #BA1E3C,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #FFFFFF,
+    500: #FFFFFF,
+    600: #FFFFFF,
+    700: #FFFFFF,
+    800: #FFFFFF,
+    900: #FFFFFF,
+    A100: #FFFFFF,
+    A200: #FFFFFF,
+    A400: #FFFFFF,
+    A700: #FFFFFF,
+  )
+);
+$primary: mat-palette($eira-primary, A100, 400, A700);
+$accent: mat-palette($eira-accent, 800, 400, A700);
+$warn: mat-palette($eira-warn, 400, 100, A400 );
+
+
+$theme: mat-light-theme($primary, $accent, $warn);
+@include style-theme($theme);
+@include angular-material-theme($theme);
+
+.lighter-accent {
+  color: mat-color($accent, 400)
+}
+
+.darker-primary {
+  background-color: mat-color($primary, A400) !important;
+}
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+$eira-heading-typography: mat-typography-config(
+  $font-family: 'Montserrat',
+  $headline: mat-typography-level(32px, 48px, 700),
+ );
+
+
+ @include mat-base-typography($eira-heading-typography);

@@ -1,0 +1,25 @@
+<form [formGroup]="form" (ngSubmit)="submit()" fxLayout="row" fxLayoutAlign="center none" >
+  <mat-horizontal-stepper fxFlex="60" >
+    <mat-step *ngFor="let step of steps; let index = index; let last = last;">
+      <ng-template matStepLabel>{{ step.label }}</ng-template>
+      <formly-form
+        [form]="form.at(index)"
+        [model]="model"
+        [fields]="step.fields"
+        [options]="options[index]">
+      </formly-form>
+
+      <div >
+
+
+
+        <button *ngIf="index !== 0" matStepperPrevious mat-raised-button
+        color="primary"  type="button" (click)="prevStep(index)">Back</button> &nbsp;&nbsp;
+        <button *ngIf="!last" matStepperNext mat-raised-button
+        color="primary"   type="button" [disabled]="!form.at(index).valid" (click)="nextStep(index)">Next</button>
+        <button *ngIf="last"  mat-raised-button
+        color="primary"  [disabled]="!form.valid" type="submit">Finish</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</form>

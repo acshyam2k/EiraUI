@@ -1,0 +1,333 @@
+<div class="content-container" fxLayout="column" fxLayoutGap="24px">
+  <div fxFill fxLayout="row" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="center none" fxFlex="100">
+      <form
+        [formGroup]="equipmentForm"
+        novalidate
+        (ngSubmit)="onSubmit()"
+        fxFlex="90"
+        fxLayout="column"
+      >
+        <input type="hidden" formControlName="siteId" />
+        <input type="hidden" formControlName="active" />
+
+        <div fxFlex class="mat-h2 primary">Equipment Configuration - Site</div>
+
+        <div fxFlex>
+          <div fxLayout="row">
+            <div fxLayout="column" fxFlex="50">
+              <div fxLayout="column" fxFlex>
+                <div fxFlex class="mat-h3">Equipment Category Details</div>
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Site Name*</mat-label>
+
+                    <mat-select
+                      placeholder="Site Name"
+                      formControlName="siteId"
+                      (selectionChange)="getEquipmentsBySiteId($event.value)"
+                    >
+                      <mat-option
+                        *ngFor="let site of sites"
+                        [value]="site.siteId"
+                      >
+                        {{ site.siteName }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        equipmentForm.controls['siteId'].hasError('required')
+                      "
+                    >
+                      <strong>Please select Site!</strong>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Equipment Category</mat-label>
+
+                    <mat-select
+                      placeholder="Equipment Category"
+                      [(ngModel)]="equipmentCategoryId"
+                      (selectionChange)="
+                        getEquipmentTypesByCategory($event.value)
+                      "
+                      required
+                      [ngModelOptions]="{ standalone: true }"
+                    >
+                      <mat-option
+                        *ngFor="let equipmentCategory of equipmentCategoryList"
+                        [value]="equipmentCategory.equipmentCategoryId"
+                      >
+                        {{ equipmentCategory.equipmentCategory }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-select
+                      placeholder="Equipment Type"
+                      formControlName="equipmentTypeId"
+                    >
+                      <mat-option
+                        *ngFor="let equipmentType of equipmentTypeList"
+                        [value]="equipmentType.equipmentTypeId"
+                      >
+                        {{ equipmentType.equipmentType }}
+                      </mat-option>
+                    </mat-select>
+
+                    <mat-error
+                      *ngIf="
+                        equipmentForm.controls['equipmentTypeId'].hasError(
+                          'required'
+                        )
+                      "
+                    >
+                      <strong>Please select Equipment Type!</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Display Name*</mat-label>
+
+                    <input
+                      matInput
+                      placeholder="Display Name"
+                      formControlName="displayName"
+                    />
+                    <mat-error
+                      *ngIf="
+                        equipmentForm.controls['displayName'].hasError(
+                          'required'
+                        )
+                      "
+                    >
+                      Display Name is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Customer Naming*</mat-label>
+
+                    <input
+                      matInput
+                      placeholder="Customer Naming"
+                      formControlName="customerNaming"
+                    />
+                    <mat-error
+                      *ngIf="
+                        equipmentForm.controls['customerNaming'].hasError(
+                          'required'
+                        )
+                      "
+                    >
+                      Customer Naming is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex class="mat-h3">Other Details</div>
+                <div fxFlex layout="row">
+                  <div fxFlex class="gstDiv">
+                    Spare
+                    <mat-slide-toggle
+                      formControlName="spareAvailable"
+                    ></mat-slide-toggle>
+                  </div>
+                </div>
+
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Added By</mat-label>
+
+                    <input
+                      matInput
+                      placeholder="Added By"
+                      formControlName="addedBy"
+                    />
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Approved By</mat-label>
+
+                    <input
+                      matInput
+                      placeholder="Approved By"
+                      formControlName="approvedBy"
+                    />
+                  </mat-form-field>
+                </div>
+                <div fxFlex>
+                  <mat-label>Status</mat-label>
+                </div>
+                <div fxFlex fxLayout="row">
+                  <mat-radio-group formControlName="status">
+                    <mat-radio-button value="created">Created</mat-radio-button>
+                    <mat-radio-button value="reviewing"
+                      >Reviewing</mat-radio-button
+                    >
+                    <mat-radio-button value="approved"
+                      >Approved</mat-radio-button
+                    >
+                    <mat-radio-button value="active">Active</mat-radio-button>
+                    <mat-radio-button value="inactive"
+                      >In-Active</mat-radio-button
+                    >
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+
+            <div fxLayout="column" fxFlex="50">
+              <div fxLayout="column" fxFlex>
+                <div fxFlex class="mat-h3">Important Details</div>
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex="33">
+                    <mat-label>Serial No.*</mat-label>
+
+                    <input
+                      matInput
+                      placeholder="Serial No."
+                      formControlName="primarySerialNumber"
+                    />
+
+                    <mat-error
+                      *ngIf="
+                        equipmentForm.controls['primarySerialNumber'].hasError(
+                          'required'
+                        )
+                      "
+                    >
+                      Please provide Serial No.
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" fxFlex="33">
+                    <mat-label>Capacity*</mat-label>
+
+                    <input
+                      matInput
+                      placeholder="Capacity"
+                      formControlName="capacity"
+                    />
+                    <mat-error
+                      *ngIf="
+                        equipmentForm.controls['capacity'].hasError('required')
+                      "
+                    >
+                      Capacity<strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+
+
+                  <mat-form-field appearance="outline" fxFlex="25">
+                    <mat-label>Components</mat-label>
+
+                    <input
+                      matInput
+                      placeholder="Components"
+                      formControlName="components"
+                    />
+
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Installation Date</mat-label>
+
+                    <input
+                      matInput
+                      [matDatepicker]="picker"
+                      placeholder="Installation Date"
+                      formControlName="installationDate"
+                     />
+
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+
+
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Warrant Expiry Date</mat-label>
+
+                    <input
+                      matInput
+                      [matDatepicker]="expDatePicker"
+                      placeholder="Warrant Expiry Date"
+                      formControlName="warrantyExpiryDate"
+                    />
+
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="expDatePicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #expDatePicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Description</mat-label>
+
+                    <textarea
+                      matInput
+                      placeholder="Description"
+                      formControlName="description"
+                      required
+                    ></textarea>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Remarks</mat-label>
+
+                    <textarea
+                      matInput
+                      placeholder="Remarks"
+                      formControlName="remarks"
+                      class="remarks-style"
+                    ></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          fxFlex
+          fxLayoutAlign="center center"
+          class="button-row"
+          fxLayoutGap="20px"
+        >
+          <button mat-raised-button color="accent">Submit</button>
+
+          <button
+            type="button"
+            mat-raised-button
+            color="warn"
+            (click)="resetForm()"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div fxFlex fxLayout="row" fxLayoutAlign="center none">
+    <div fxFill fxLayout="column" fxFlex="90">
+      <div fxFlex>
+        <app-equipment-table (edit)="onEdit($event)"></app-equipment-table>
+      </div>
+    </div>
+  </div>
+</div>

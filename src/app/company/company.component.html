@@ -1,0 +1,341 @@
+<div class="content-container" fxLayout="column" fxLayoutGap="24px">
+  <div fxFill fxLayout="row" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="center none" fxFlex="100">
+      <form
+        [formGroup]="companyForm"
+        novalidate
+        (ngSubmit)="onSubmit()"
+        fxFlex="90"
+        fxLayout="column"
+      >
+        <input type="hidden" formControlName="companyId" />
+        <div fxFlex class="mat-h2 primary">Company Configuration</div>
+
+           <div fxFlex>
+            <div fxLayout="row" fxLayoutGap="20px">
+              <div fxLayout="column" fxFlex="50">
+                <div fxLayout="column" fxFlex>
+                  <div fxFlex class="mat-h3">Company Details</div>
+                  <div fxFlex layout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Company Name*</mat-label>
+
+                      <input
+                        matInput
+                        placeholder="CompanyName"
+                        formControlName="companyName"
+                      />
+                      <mat-error
+                        *ngIf="
+                          companyForm.controls['companyName'].hasError(
+                            'required'
+                          )
+                        "
+                      >
+                        Company Name is <strong>required!</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div fxFlex layout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Company Address*</mat-label>
+
+                      <input
+                        matInput
+                        placeholder="Company Address*"
+                        formControlName="companyAddress"
+                      />
+
+                      <mat-error
+                        *ngIf="
+                          companyForm.controls['companyAddress'].hasError(
+                            'required'
+                          )
+                        "
+                      >
+                        Company Address <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div fxFlex layout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Country*</mat-label>
+
+                      <mat-select
+                        placeholder="Country"
+                        formControlName="countryId"
+                        (selectionChange)="getStatesByCountry($event.value)"
+                      >
+                        <mat-option
+                          *ngFor="let country of countries"
+                          [value]="country.countryId"
+                        >
+                          {{ country.countryName }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="
+                          companyForm.controls['countryId'].hasError('required')
+                        "
+                      >
+                        <strong>Please select Country!</strong>
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>State*</mat-label>
+
+                      <mat-select
+                        placeholder="State*"
+                        formControlName="stateId"
+                        (selectionChange)="getCitiesByState($event.value)"
+                      >
+                        <mat-option
+                          *ngFor="let state of states"
+                          [value]="state.stateId"
+                        >
+                          {{ state.stateName }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="
+                          companyForm.controls['stateId'].hasError('required')
+                        "
+                      >
+                        <strong>Please select State!</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div fxFlex layout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>City*</mat-label>
+
+                      <mat-select placeholder="City" formControlName="cityId">
+                        <mat-option
+                          *ngFor="let city of cities"
+                          [value]="city.cityId"
+                        >
+                          {{ city.cityName }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="
+                          companyForm.controls['cityId'].hasError('required')
+                        "
+                      >
+                        <strong>Please select City!</strong>
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Pincode*</mat-label>
+                      <input
+                        matInput
+                        placeholder="Pincode"
+                        formControlName="pincode"
+                      />
+                      <mat-error
+                        *ngIf="
+                          companyForm.controls['pincode'].hasError('required')
+                        "
+                      >
+                        Pincode is <strong>required!</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div fxFlex class="mat-h3">Financial Details</div>
+                  <div fxFlex layout="row">
+                    <div fxFlex>
+                      GST Compliant
+                      <mat-slide-toggle
+                        formControlName="gstCompliant"
+                      ></mat-slide-toggle>
+                    </div>
+                  </div>
+
+                  <div fxFlex layout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>PAN/TAX #*</mat-label>
+
+                      <input
+                        matInput
+                        placeholder="PAN/TAX #"
+                        formControlName="panOrTaxNo"
+                      />
+                      <mat-error
+                        *ngIf="
+                          companyForm.controls['panOrTaxNo'].hasError(
+                            'required'
+                          )
+                        "
+                      >
+                        PAN or TAX No is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex>
+                      <input
+                        matInput
+                        placeholder="GST No"
+                        formControlName="gstOrVatNumber"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+              <div fxLayout="column" fxFlex="50">
+                <div fxLayout="column" fxFlex fxLayoutAlign="start">
+                  <div fxFlex class="mat-h3">Contact Details</div>
+                  <div fxFlex layout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Phone Number </mat-label>
+
+                      <input
+                        matInput
+                        placeholder="Phone Number"
+                        formControlName="phoneNumber"
+                      />
+
+                      <mat-icon matSuffix>phone</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Email Id*</mat-label>
+
+                      <input
+                        matInput
+                        placeholder="Email Id"
+                        formControlName="email"
+                      />
+                      <mat-error
+                        *ngIf="
+                          companyForm.controls['email'].hasError('required')
+                        "
+                      >
+                        Email is <strong>required</strong>
+                      </mat-error>
+
+                      <mat-error
+                        *ngIf="companyForm.controls['email'].hasError('email')"
+                      >
+                        Email should be in <strong>valid</strong>format!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div fxFlex layout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Primary Contact Name* </mat-label>
+
+                      <input
+                        matInput
+                        placeholder="Primary Contact Name*"
+                        formControlName="primaryContactName"
+                      />
+
+                      <mat-error
+                        *ngIf="
+                          companyForm.controls['primaryContactName'].hasError(
+                            'required'
+                          )
+                        "
+                      >
+                        Primary Contact Name is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Primary Contact Email Id* </mat-label>
+
+                      <input
+                        matInput
+                        placeholder="Primary Contact Email Id"
+                        formControlName="primaryContactEmail"
+                      />
+                      <mat-error
+                        *ngIf="
+                          companyForm.controls['primaryContactEmail'].hasError(
+                            'required'
+                          )
+                        "
+                      >
+                        Primary Contact Email is <strong>required</strong>
+                      </mat-error>
+
+                      <mat-error
+                        *ngIf="
+                          companyForm.controls['primaryContactEmail'].hasError(
+                            'email'
+                          )
+                        "
+                      >
+                        Email should be in <strong>valid</strong>format!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div fxFlex layout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Primary Contact Mobile#</mat-label>
+
+                      <input
+                        matInput
+                        placeholder="Primary Contact Mobile No"
+                        formControlName="primaryContactMobileNumber"
+                      />
+                    </mat-form-field>
+                  </div>
+
+                  <div fxFlex layout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Description</mat-label>
+
+                      <textarea
+                        matInput
+                        placeholder="Description/Remarks"
+                        formControlName="description"
+                        required
+                      ></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        <div
+          fxFlex
+          fxLayoutAlign="center center"
+          class="button-row"
+          fxLayoutGap="20px"
+        >
+          <button mat-raised-button color="accent">Submit</button>
+
+          <button
+            type="button"
+            mat-raised-button
+            color="warn"
+            (click)="resetForm()"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div fxFlex fxLayout="row" fxLayoutAlign="center none">
+    <div fxFill fxLayout="column" fxFlex="90">
+      <div fxFlex>
+        <app-company-table (edit)="onEdit($event)"></app-company-table>
+      </div>
+    </div>
+  </div>
+</div>
+

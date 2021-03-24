@@ -1,0 +1,31 @@
+<mat-toolbar role="toolbar" class="dialog-header">
+  <span>Add New Region</span>
+  <span class="fx-spacer"></span>
+  <button mat-icon-button (click)="onCancelClick()">
+    <mat-icon mat-list-icon>close</mat-icon>
+  </button>
+</mat-toolbar>
+<div mat-dialog-content fxLayout="column">
+  <mat-form-field appearance="outline">
+    <mat-label>Region Name</mat-label>
+    <input matInput [(ngModel)]="region.regionName" required />
+
+    <mat-error> Region Name is <strong>required!</strong> </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Region Description</mat-label>
+    <input matInput [(ngModel)]="region.description" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions fxLayoutAlign="end center">
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button
+    mat-button
+    (click)="onSaveClick()"
+    [mat-dialog-close]="region"
+    cdkFocusInitial
+  >
+    Save
+  </button>
+</div>

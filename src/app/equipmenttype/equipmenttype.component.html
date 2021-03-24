@@ -1,0 +1,191 @@
+<div class="content-container" fxLayout="column" fxLayoutGap="24px">
+  <div fxFill fxLayout="row" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="center none" fxFlex="100">
+      <form
+        [formGroup]="equipmentTypeForm"
+        novalidate
+        (ngSubmit)="onSubmit()"
+        fxFlex="90"
+        fxLayout="column"
+      >
+        <input type="hidden" formControlName="equipmentTypeId" />
+        <div fxFlex class="mat-h2 primary">Equipment Type Configuration</div>
+
+           <div fxFlex>
+            <div fxLayout="row" fxLayoutGap="20px">
+              <div fxLayout="column" fxFlex="50">
+                <div fxLayout="column" fxFlex>
+                  <div fxFlex class="mat-h3">Equipment Type Details</div>
+                  <div fxFlex layout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Equipment Type*</mat-label>
+
+                      <input
+                        matInput
+                        placeholder="Equipment Type"
+                        formControlName="equipmentType"
+                      />
+                      <mat-error
+                        *ngIf="
+                          equipmentTypeForm.controls['equipmentType'].hasError(
+                            'required'
+                          )
+                        "
+                      >
+                        Equipment Type is <strong>required!</strong>
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Equipment Category*</mat-label>
+
+                      <mat-select
+                        placeholder="Equipment Category"
+                        formControlName="equipmentCategoryId"
+                       >
+                        <mat-option
+                          *ngFor="let category of equipmentCategories"
+                          [value]="category.equipmentCategoryId"
+                        >
+                          {{ category.equipmentCategory }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="
+                          equipmentTypeForm.controls['equipmentCategoryId'].hasError('required')
+                        "
+                      >
+                        <strong>Please select Equipment Category!</strong>
+                      </mat-error>
+                    </mat-form-field>
+
+                  </div>
+
+                  <div fxFlex layout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Description*</mat-label>
+
+                      <textarea
+                        matInput
+                        placeholder="Description for Equipment Category*"
+                        formControlName="description"
+                      ></textarea>
+
+                      <mat-error
+                        *ngIf="
+                          equipmentTypeForm.controls['description'].hasError(
+                            'required'
+                          )
+                        "
+                      >
+                        Description is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex layout="row">
+                    <mat-label>Status</mat-label>&nbsp;&nbsp;
+
+                    <mat-radio-group formControlName="active" >
+
+                      <mat-radio-button [value]="true">Active</mat-radio-button>&nbsp;
+                      <mat-radio-button [value]="false"
+                        >In-Active</mat-radio-button
+                      >
+                    </mat-radio-group>
+
+
+                  </div>
+
+                </div>
+              </div>
+
+              <div fxLayout="column" fxFlex="50">
+                <div fxLayout="column" fxFlex fxLayoutAlign="start">
+                  <div fxFlex class="mat-h3">Other Details</div>
+                  <div fxFlex layout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Display Name</mat-label>
+
+                      <input
+                        matInput
+                        placeholder="Display Name"
+                        formControlName="displayName"
+                      />
+
+                     </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Manufacturer</mat-label>
+
+                      <input
+                        matInput
+                        placeholder="Manufacturer"
+                        formControlName="manufacturer"
+                      />
+
+                     </mat-form-field>
+                  </div>
+
+                  <div fxFlex layout="row">
+                    <mat-form-field appearance="outline" fxFlex="100">
+                      <mat-label>Module Type</mat-label>
+
+                      <input
+                        matInput
+                        placeholder="Module Type"
+                        formControlName="moduleType"
+                      />
+
+                    </mat-form-field>
+                                        </div>
+
+
+                  <div fxFlex layout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-label>Remarks</mat-label>
+
+                      <textarea
+                        matInput
+                        placeholder="Remarks"
+                        formControlName="remarks"
+
+                      ></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        <div
+          fxFlex
+          fxLayoutAlign="center center"
+          class="button-row"
+          fxLayoutGap="20px"
+        >
+          <button mat-raised-button color="accent">Submit</button>
+
+          <button
+            type="button"
+            mat-raised-button
+            color="warn"
+            (click)="resetForm()"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div fxFlex fxLayout="row" fxLayoutAlign="center none">
+    <div fxFill fxLayout="column" fxFlex="90">
+      <div fxFlex>
+        <app-equipmenttype-table (edit)="onEdit($event)"></app-equipmenttype-table>
+      </div>
+    </div>
+  </div>
+</div>
+

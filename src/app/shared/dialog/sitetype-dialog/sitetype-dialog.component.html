@@ -1,0 +1,39 @@
+<mat-toolbar role="toolbar" class="dialog-header">
+    <span>Add New Sitetype</span>
+    <span class="fx-spacer"></span>
+    <button mat-icon-button (click)="onCancelClick()">
+      <mat-icon mat-list-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div mat-dialog-content fxLayout="column">
+    <mat-form-field appearance="outline">
+      <mat-label>Site Type</mat-label>
+      <input matInput [(ngModel)]="siteData.siteType" required />
+  
+      <mat-error> Sitetype is <strong>required!</strong> </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+        <mat-label>Site Shortname</mat-label>
+        <input matInput [(ngModel)]="siteData.shortName" />
+      </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Site Description</mat-label>
+      <input matInput [(ngModel)]="siteData.description" />
+    </mat-form-field>
+
+    
+
+  </div>
+  <div mat-dialog-actions fxLayoutAlign="end center">
+    <button mat-button (click)="onCancelClick()">Cancel</button>
+    <button
+      mat-button
+      (click)="onSaveClick()"
+   
+      cdkFocusInitial
+    >
+      Save
+    </button>
+  </div>
